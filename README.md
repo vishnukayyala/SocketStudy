@@ -9,7 +9,7 @@ To perform a study on Socket Programming
 	Socket programming involves the use of sockets, which serve as endpoints for communication. A socket is identified by an IP address and a port number, and it facilitates data transfer between a client and a server. The two main types of sockets are Stream Sockets, which provide a reliable, connection-oriented communication, and Datagram Sockets, which are connectionless and suitable for scenarios where reliability is less critical.
 ## Key Concepts in Socket Programming:
 1.Sockets
-•	A socket is a software representation of a communication endpoint in a network.
+•	A socket is a software representation of a communication endpoint in a network
 •	It is identified by an IP address and a port number.
 •	Sockets can be classified into two main types: Stream Sockets and Datagram Sockets.
 •	Stream Sockets provide a reliable, connection-oriented communication, while Datagram Sockets are connectionless and operate in a best-effort mode.
@@ -52,6 +52,41 @@ Socket programming finds applications in various domains, including web developm
 3.	File Transfer Protocol: Protocols like FTP (File Transfer Protocol) utilize socket programming for transferring files between a client and a server.
 4.	Networked Games: Online multiplayer games rely on socket programming to facilitate communication between game clients and servers.
 5.	RPC mechanisms: which allow processes to execute code on a remote server, often use socket programming for communication.
+
+programme:
+
+client:
+```
+import socket
+from datetime import datetime
+s=socket.socket()
+s.bind(('localhost',8000))
+s.listen(5)
+c,addr=s.accept()
+print("Client Address : ",addr)
+now = datetime.now()
+c.send(now.strftime("%d/%m/%Y %H:%M:%S").encode())
+ack=c.recv(1024).decode()
+if ack:
+ print(ack)
+c.close()
+```
+
+
+server:
+```
+import socket
+s=socket.socket()
+s.connect(('localhost',8000))
+print(s.getsockname())
+print(s.recv(1024).decode())
+s.send("acknowledgement recived from the server".encode())
+```
+
+output:
+
+<img width="1889" height="1094" alt="Screenshot 2025-11-12 211021" src="https://github.com/user-attachments/assets/c893c48f-4dd7-41eb-bb2c-925b283a354e" />
+
 
 
 ## Result:
